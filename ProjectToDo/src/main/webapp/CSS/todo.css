@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+body {
+	padding: 0px;
+	margin: 0px;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-image: url("mountains-8564328_1280.webp");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+* {
+	/* border: 1px solid black; */
+	/* padding: 5px; */
+	
+}
+
+#main {
+	width: 60%;
+	height: 60%;
+	display: flex;
+	background-color: #4b161662;
+	box-shadow: 10px 10px 10px rgb(87, 75, 66);
+	border-radius: 20px;
+}
+
+#login {
+	width: 65%;
+	padding: 10px;
+	/* display: none; */
+}
+
+#singup {
+	width: 65%;
+	display: none;
+}
+
+#option {
+	width: 35%;
+}
+
+h1 {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+input[type="text"], input[type="password"] {
+	width: 60%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 15px;
+	background-color: transparent;
+}
+
+button {
+	width: 64%;
+	padding: 10px 15px;
+	background-color: rgb(226, 99, 96);
+	color: white;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+button:hover {
+	opacity: 0.8;
+	background-color: rgb(226, 99, 96);
+}
+
+#option {
+	background-color: bisque;
+	border-top-right-radius: 20px;
+}
