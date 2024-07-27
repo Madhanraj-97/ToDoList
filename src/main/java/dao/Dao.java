@@ -19,7 +19,7 @@ public class Dao {
 	
 	public static Connection getConnection() throws SQLException, ClassNotFoundException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/db3","root","root");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/to-do-app","root","root");
 		return con;
 	}
 	
@@ -41,7 +41,7 @@ public class Dao {
 	
 	public User findByEmail(String eamil) throws ClassNotFoundException, SQLException {
 		Connection con = getConnection();
-		PreparedStatement pst = con.prepareStatement("select * from user where useremail = ?");
+		PreparedStatement pst = con.prepareStatement("select * from user where email = ?");
 		pst.setString(1, eamil);
 		ResultSet rs = pst.executeQuery();
 		if(rs.next()) {
@@ -100,7 +100,7 @@ public class Dao {
 	
 	public int deleteTaskById(int taskid) throws ClassNotFoundException, SQLException {
 		Connection con = getConnection();
-		PreparedStatement pst = con.prepareStatement("delete from task where taskid = ? ");
+		PreparedStatement pst = con.prepareStatement("delete from task where id = ? ");
 		pst.setInt(1, taskid);
 		int res = pst.executeUpdate();
 		return res;
@@ -108,7 +108,7 @@ public class Dao {
 	
 	public int getTaskId() throws ClassNotFoundException, SQLException {
 		Connection con = getConnection();
-		PreparedStatement pst = con.prepareStatement("SELECT max(taskid) from task");
+		PreparedStatement pst = con.prepareStatement("SELECT max(id) from task");
 		ResultSet rs = pst.executeQuery();
 		if(rs.next()) {
 			int id = rs.getInt(1);
@@ -122,7 +122,7 @@ public class Dao {
 	
 	public int getUserId() throws ClassNotFoundException, SQLException {
 		Connection con = getConnection();
-		PreparedStatement pst = con.prepareStatement("SELECT max(userid) from user");
+		PreparedStatement pst = con.prepareStatement("SELECT max(id) from user");
 		ResultSet rs = pst.executeQuery();
 		if(rs.next()) {
 			int id = rs.getInt(1);
@@ -135,18 +135,17 @@ public class Dao {
 
 	public Task findtaskById(int taskid) throws ClassNotFoundException, SQLException {
 		Connection con = getConnection();
-		PreparedStatement pst = con.prepareStatement("SELECT * from task where taskid = ?");
+		PreparedStatement pst = con.prepareStatement("SELECT * from task where id = ?");
 		pst.setInt(1, taskid);
 		ResultSet rs = pst.executeQuery();
 		rs.next();
 		Task task = new Task(taskid, rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7));
 		return task;
-		
 	}
 	
 	public void updateTask(Task task) throws ClassNotFoundException, SQLException {
 		Connection con = getConnection();
-		PreparedStatement pst = con.prepareStatement("update task set tasktitle=? ,taskdescription=? , taskpriority=?, taskduedate=?, taskstatus=?, userid=? where taskid =? ");
+		PreparedStatement pst = con.prepareStatement("update task set title=? ,description=? , priority=?, duedate=?, status=?, userid=? where id =? ");
 		
 		pst.setString(1,task.getTasktitle());
 		pst.setString(2, task.getTaskdescription());
@@ -162,14 +161,14 @@ public class Dao {
 	public void updatePriorityBasedOnDuration() throws SQLException, ClassNotFoundException {
 		Connection con = getConnection();
 		Statement st = con.createStatement();
-		st.execute("UPDATE task SET taskpriority = 'high' WHERE taskduedate BETWEEN CURDATE() AND CURDATE() +  INTERVAL 3 DAY");
-		st.execute("UPDATE task SET taskpriority = 'medium' WHERE taskduedate BETWEEN CURDATE() + INTERVAL 4 DAY AND CURDATE() + INTERVAL 7 DAY");
-		st.execute("UPDATE task SET taskpriority = 'low' WHERE taskduedate > CURDATE() + INTERVAL 7 DAY");
+		st.execute("UPDATE task SET priority = 'high' WHERE duedate BETWEEN CURDATE() AND CURDATE() +  INTERVAL 3 DAY");
+		st.execute("UPDATE task SET priority = 'medium' WHERE duedate BETWEEN CURDATE() + INTERVAL 4 DAY AND CURDATE() + INTERVAL 7 DAY");
+		st.execute("UPDATE task SET priority = 'low' WHERE duedate > CURDATE() + INTERVAL 7 DAY");
 	}
 	
 	public int updateUserPassword(User u) throws ClassNotFoundException, SQLException {
 		Connection con = getConnection();
-		PreparedStatement pst = con.prepareStatement("update user set userpassword = ? where userid = ?");
+		PreparedStatement pst = con.prepareStatement("update user set password = ? where id = ?");
 		pst.setString(1, u.getUserpassword());
 		pst.setInt(2,u.getUserid());
 		
