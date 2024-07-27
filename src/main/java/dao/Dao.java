@@ -19,7 +19,8 @@ public class Dao {
 	
 	public static Connection getConnection() throws SQLException, ClassNotFoundException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/to-do-app","root","root");
+		
+		Connection con = DriverManager.getConnection("jdbc:mysql://mysql.railway.internal:3306/railway","root","fiENbpIfuENuKZBxnUQIPrhYMIZIdTMF");");
 		return con;
 	}
 	
